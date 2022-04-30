@@ -10,7 +10,9 @@ The operations all run in `O(log n)` amortized time.
 
 Examples:
 
-```jldoctest
+```
+julia> using LinkCutTrees
+
 julia> n1 = LinkCutTreeNode{Int}(1);
 
 julia> n2 = LinkCutTreeNode{Int}(2);
