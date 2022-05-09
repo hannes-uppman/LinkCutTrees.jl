@@ -1,4 +1,5 @@
 using Test
-using LinkCutTrees: LinkCutTreeNode, access!, link!, cut!, find_root!, splay!
+using LinkCutTrees
+using LinkCutTrees: splay!, access!, parent
 
 include("test_link_cut_tree.jl")
