@@ -36,7 +36,7 @@ function _subtract_costs(x::T, y::T) where {T <: Real}
     elseif x == typemax(T) && y == typemax(T)
         return zero(T)
     else
-        error("Error when subtracting costs")
+        throw(ErrorException("Error when subtracting costs"))
     end
 end
 
@@ -47,9 +47,8 @@ function _disassemble!(v::LinkCutTreeNode)
     w = v.right
 
     mincost_v_old = v.delta_min # v root
-    cost_v = _add_costs(v.delta_cost, mincost_v_old)
 
-    v.delta_min = cost_v
+    v.delta_min = _add_costs(v.delta_cost, mincost_v_old)
     v.delta_cost = zero(v.delta_cost)
 
     if u !== nothing
