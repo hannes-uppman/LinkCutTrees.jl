@@ -26,7 +26,7 @@ This implementation follows the version from Tarjan's book "Data Structures and 
 
 Examples:
 
-```
+```julia
 julia> using LinkCutTrees
 
 julia> n1 = make_tree(Int, Nothing, Int, 1);
@@ -48,7 +48,7 @@ julia> n3 === find_root(n3)
 true
 ```
 
-```
+```julia
 julia> using LinkCutTrees
 
 julia> n1 = make_tree(Int, Int, Int, 1);
