@@ -10,19 +10,19 @@
         v.parent = w
     end
 
-    function set_cost!(v::LinkCutTreeNode, delta_cost, delta_min)
-        v.delta_cost = delta_cost
-        v.delta_min = delta_min
+    function set_cost!(v::LinkCutTreeNode{T, U, V}, delta_cost, delta_min) where {T, U, V}
+        v.delta_cost = convert(V, delta_cost)
+        v.delta_min = convert(V, delta_min)
     end
 
     get_cost(v::LinkCutTreeNode) = (v.delta_cost, v.delta_min)
 
-    @testset "splay!" begin
+    @testset "splay! $(V)" for V in [Int, Float32, Float64]
         begin
-            n1 = make_tree(Int, Nothing, Int, 1)
-            n2 = make_tree(Int, Nothing, Int, 2)
-            n3 = make_tree(Int, Nothing, Int, 3)
-            n4 = make_tree(Int, Nothing, Int, 4)
+            n1 = make_tree(Int, Nothing, V, 1)
+            n2 = make_tree(Int, Nothing, V, 2)
+            n3 = make_tree(Int, Nothing, V, 3)
+            n4 = make_tree(Int, Nothing, V, 4)
 
             attach_left!(n3, n2)
             attach_right!(n4, n2)
@@ -44,12 +44,12 @@
         end
 
         begin
-            n1 = make_tree(Int, Nothing, Int, 1)
-            n2 = make_tree(Int, Nothing, Int, 2)
-            n3 = make_tree(Int, Nothing, Int, 3)
-            n4 = make_tree(Int, Nothing, Int, 4)
-            n5 = make_tree(Int, Nothing, Int, 5)
-            n6 = make_tree(Int, Nothing, Int, 6)
+            n1 = make_tree(Int, Nothing, V, 1)
+            n2 = make_tree(Int, Nothing, V, 2)
+            n3 = make_tree(Int, Nothing, V, 3)
+            n4 = make_tree(Int, Nothing, V, 4)
+            n5 = make_tree(Int, Nothing, V, 5)
+            n6 = make_tree(Int, Nothing, V, 6)
 
             attach_left!(n3, n2)
             attach_right!(n4, n2)
@@ -79,12 +79,12 @@
         end
 
         begin
-            n1 = make_tree(Int, Nothing, Int, 1)
-            n2 = make_tree(Int, Nothing, Int, 2)
-            n3 = make_tree(Int, Nothing, Int, 3)
-            n4 = make_tree(Int, Nothing, Int, 4)
-            n5 = make_tree(Int, Nothing, Int, 5)
-            n6 = make_tree(Int, Nothing, Int, 6)
+            n1 = make_tree(Int, Nothing, V, 1)
+            n2 = make_tree(Int, Nothing, V, 2)
+            n3 = make_tree(Int, Nothing, V, 3)
+            n4 = make_tree(Int, Nothing, V, 4)
+            n5 = make_tree(Int, Nothing, V, 5)
+            n6 = make_tree(Int, Nothing, V, 6)
 
             attach_left!(n3, n2)
             attach_right!(n4, n2)
@@ -114,14 +114,14 @@
         end
 
         begin
-            n1 = make_tree(Int, Nothing, Int, 1)
-            n2 = make_tree(Int, Nothing, Int, 2)
-            n3 = make_tree(Int, Nothing, Int, 3)
-            n4 = make_tree(Int, Nothing, Int, 4)
-            n5 = make_tree(Int, Nothing, Int, 5)
-            n6 = make_tree(Int, Nothing, Int, 6)
-            n7 = make_tree(Int, Nothing, Int, 7)
-            n8 = make_tree(Int, Nothing, Int, 8)
+            n1 = make_tree(Int, Nothing, V, 1)
+            n2 = make_tree(Int, Nothing, V, 2)
+            n3 = make_tree(Int, Nothing, V, 3)
+            n4 = make_tree(Int, Nothing, V, 4)
+            n5 = make_tree(Int, Nothing, V, 5)
+            n6 = make_tree(Int, Nothing, V, 6)
+            n7 = make_tree(Int, Nothing, V, 7)
+            n8 = make_tree(Int, Nothing, V, 8)
 
             attach_left!(n3, n2)
             attach_right!(n4, n2)
@@ -159,14 +159,14 @@
         end
 
         begin
-            n1 = make_tree(Int, Nothing, Int, 1)
-            n2 = make_tree(Int, Nothing, Int, 2)
-            n3 = make_tree(Int, Nothing, Int, 3)
-            n4 = make_tree(Int, Nothing, Int, 4)
-            n5 = make_tree(Int, Nothing, Int, 5)
-            n6 = make_tree(Int, Nothing, Int, 6)
-            n7 = make_tree(Int, Nothing, Int, 7)
-            n8 = make_tree(Int, Nothing, Int, 8)
+            n1 = make_tree(Int, Nothing, V, 1)
+            n2 = make_tree(Int, Nothing, V, 2)
+            n3 = make_tree(Int, Nothing, V, 3)
+            n4 = make_tree(Int, Nothing, V, 4)
+            n5 = make_tree(Int, Nothing, V, 5)
+            n6 = make_tree(Int, Nothing, V, 6)
+            n7 = make_tree(Int, Nothing, V, 7)
+            n8 = make_tree(Int, Nothing, V, 8)
 
             attach_left!(n3, n2)
             attach_right!(n4, n2)
@@ -204,14 +204,14 @@
         end
 
         begin
-            n1 = make_tree(Int, Nothing, Int, 1)
-            n2 = make_tree(Int, Nothing, Int, 2)
-            n3 = make_tree(Int, Nothing, Int, 3)
-            n4 = make_tree(Int, Nothing, Int, 4)
-            n5 = make_tree(Int, Nothing, Int, 5)
-            n6 = make_tree(Int, Nothing, Int, 6)
-            n7 = make_tree(Int, Nothing, Int, 7)
-            n8 = make_tree(Int, Nothing, Int, 8)
+            n1 = make_tree(Int, Nothing, V, 1)
+            n2 = make_tree(Int, Nothing, V, 2)
+            n3 = make_tree(Int, Nothing, V, 3)
+            n4 = make_tree(Int, Nothing, V, 4)
+            n5 = make_tree(Int, Nothing, V, 5)
+            n6 = make_tree(Int, Nothing, V, 6)
+            n7 = make_tree(Int, Nothing, V, 7)
+            n8 = make_tree(Int, Nothing, V, 8)
 
             attach_left!(n3, n2)
             attach_right!(n4, n2)
@@ -249,14 +249,14 @@
         end
 
         begin
-            n1 = make_tree(Int, Nothing, Int, 1)
-            n2 = make_tree(Int, Nothing, Int, 2)
-            n3 = make_tree(Int, Nothing, Int, 3)
-            n4 = make_tree(Int, Nothing, Int, 4)
-            n5 = make_tree(Int, Nothing, Int, 5)
-            n6 = make_tree(Int, Nothing, Int, 6)
-            n7 = make_tree(Int, Nothing, Int, 7)
-            n8 = make_tree(Int, Nothing, Int, 8)
+            n1 = make_tree(Int, Nothing, V, 1)
+            n2 = make_tree(Int, Nothing, V, 2)
+            n3 = make_tree(Int, Nothing, V, 3)
+            n4 = make_tree(Int, Nothing, V, 4)
+            n5 = make_tree(Int, Nothing, V, 5)
+            n6 = make_tree(Int, Nothing, V, 6)
+            n7 = make_tree(Int, Nothing, V, 7)
+            n8 = make_tree(Int, Nothing, V, 8)
 
             attach_left!(n3, n2)
             attach_right!(n4, n2)
@@ -294,16 +294,16 @@
         end
 
         begin
-            n1 = make_tree(Int, Nothing, Int, 1)
-            n2 = make_tree(Int, Nothing, Int, 2)
-            n3 = make_tree(Int, Nothing, Int, 3)
-            n4 = make_tree(Int, Nothing, Int, 4)
-            n5 = make_tree(Int, Nothing, Int, 5)
-            n6 = make_tree(Int, Nothing, Int, 6)
-            n7 = make_tree(Int, Nothing, Int, 7)
-            n8 = make_tree(Int, Nothing, Int, 8)
-            n9 = make_tree(Int, Nothing, Int, 9)
-            n10 = make_tree(Int, Nothing, Int, 10)
+            n1 = make_tree(Int, Nothing, V, 1)
+            n2 = make_tree(Int, Nothing, V, 2)
+            n3 = make_tree(Int, Nothing, V, 3)
+            n4 = make_tree(Int, Nothing, V, 4)
+            n5 = make_tree(Int, Nothing, V, 5)
+            n6 = make_tree(Int, Nothing, V, 6)
+            n7 = make_tree(Int, Nothing, V, 7)
+            n8 = make_tree(Int, Nothing, V, 8)
+            n9 = make_tree(Int, Nothing, V, 9)
+            n10 = make_tree(Int, Nothing, V, 10)
 
             attach_left!(n3, n2)
             attach_right!(n4, n2)
@@ -349,16 +349,16 @@
         end
 
         begin
-            n1 = make_tree(Int, Nothing, Int, 1)
-            n2 = make_tree(Int, Nothing, Int, 2)
-            n3 = make_tree(Int, Nothing, Int, 3)
-            n4 = make_tree(Int, Nothing, Int, 4)
-            n5 = make_tree(Int, Nothing, Int, 5)
-            n6 = make_tree(Int, Nothing, Int, 6)
-            n7 = make_tree(Int, Nothing, Int, 7)
-            n8 = make_tree(Int, Nothing, Int, 8)
-            n9 = make_tree(Int, Nothing, Int, 9)
-            n10 = make_tree(Int, Nothing, Int, 10)
+            n1 = make_tree(Int, Nothing, V, 1)
+            n2 = make_tree(Int, Nothing, V, 2)
+            n3 = make_tree(Int, Nothing, V, 3)
+            n4 = make_tree(Int, Nothing, V, 4)
+            n5 = make_tree(Int, Nothing, V, 5)
+            n6 = make_tree(Int, Nothing, V, 6)
+            n7 = make_tree(Int, Nothing, V, 7)
+            n8 = make_tree(Int, Nothing, V, 8)
+            n9 = make_tree(Int, Nothing, V, 9)
+            n10 = make_tree(Int, Nothing, V, 10)
 
             attach_left!(n3, n2)
             attach_right!(n4, n2)
@@ -404,14 +404,14 @@
         end
     end
 
-    @testset "access!" begin
+    @testset "access! $(V)" for V in [Int, Float32, Float64]
         begin
-            n1 = make_tree(Int, Nothing, Int, 1)
-            n2 = make_tree(Int, Nothing, Int, 2)
-            n3 = make_tree(Int, Nothing, Int, 3)
-            n4 = make_tree(Int, Nothing, Int, 4)
-            n5 = make_tree(Int, Nothing, Int, 5)
-            n6 = make_tree(Int, Nothing, Int, 6)
+            n1 = make_tree(Int, Nothing, V, 1)
+            n2 = make_tree(Int, Nothing, V, 2)
+            n3 = make_tree(Int, Nothing, V, 3)
+            n4 = make_tree(Int, Nothing, V, 4)
+            n5 = make_tree(Int, Nothing, V, 5)
+            n6 = make_tree(Int, Nothing, V, 6)
 
             n2.path_parent = n1
             n3.path_parent = n1
@@ -434,12 +434,12 @@
         end
 
         begin
-            n1 = make_tree(Int, Nothing, Int, 1)
-            n2 = make_tree(Int, Nothing, Int, 2)
-            n3 = make_tree(Int, Nothing, Int, 3)
-            n4 = make_tree(Int, Nothing, Int, 4)
-            n5 = make_tree(Int, Nothing, Int, 5)
-            n6 = make_tree(Int, Nothing, Int, 6)
+            n1 = make_tree(Int, Nothing, V, 1)
+            n2 = make_tree(Int, Nothing, V, 2)
+            n3 = make_tree(Int, Nothing, V, 3)
+            n4 = make_tree(Int, Nothing, V, 4)
+            n5 = make_tree(Int, Nothing, V, 5)
+            n6 = make_tree(Int, Nothing, V, 6)
 
             n2.path_parent = n1
             n3.path_parent = n1
@@ -461,13 +461,13 @@
         end
 
         begin
-            n1 = make_tree(Int, Nothing, Int, 1)
-            n2 = make_tree(Int, Nothing, Int, 2)
-            n3 = make_tree(Int, Nothing, Int, 3)
-            n4 = make_tree(Int, Nothing, Int, 4)
-            n5 = make_tree(Int, Nothing, Int, 5)
-            n6 = make_tree(Int, Nothing, Int, 6)
-            n7 = make_tree(Int, Nothing, Int, 7)
+            n1 = make_tree(Int, Nothing, V, 1)
+            n2 = make_tree(Int, Nothing, V, 2)
+            n3 = make_tree(Int, Nothing, V, 3)
+            n4 = make_tree(Int, Nothing, V, 4)
+            n5 = make_tree(Int, Nothing, V, 5)
+            n6 = make_tree(Int, Nothing, V, 6)
+            n7 = make_tree(Int, Nothing, V, 7)
 
             n2.path_parent = n1
             attach_left!(n1, n3)
@@ -490,49 +490,69 @@
         end
     end
 
-    @testset "link!" begin
+    @testset "link! $(V)" for V in [Int, Float32, Float64]
         begin
-            n1 = make_tree(Int, Nothing, Int, 1)
-            n2 = make_tree(Int, Nothing, Int, 2)
+            n1 = make_tree(Int, Nothing, V, 1)
+            n2 = make_tree(Int, Nothing, V, 2)
 
-            link!(n2, n1, nothing, 1)
+            link!(n2, n1, nothing, convert(V, 1))
 
             @test n2.left === n1
             @test n1.parent === n2
+
+            @test get_cost(n1) == (0, typemax(V))
+            @test get_cost(n2) == (0, 1)
         end
 
         begin
-            n1 = make_tree(Int, Nothing, Int, 1)
-            n2 = make_tree(Int, Nothing, Int, 2)
+            n1 = make_tree(Int, Nothing, V, 1)
+            n2 = make_tree(Int, Nothing, V, 2)
+            n3 = make_tree(Int, Nothing, V, 3)
 
-            n2.path_parent = n1
+            link!(n3, n1, nothing, convert(V, 3))
+            splay!(n1)
 
-            @test_throws ArgumentError link!(n2, n1, nothing, 1)
+            @test n1.right === n3
+            @test n3.parent === n1
+
+            @test get_cost(n1) == (typemax(V), 3)
+            @test get_cost(n3) == (0, 0)
         end
 
         begin
-            n1 = make_tree(Int, Nothing, Int, 1)
-            n2 = make_tree(Int, Nothing, Int, 2)
+            n1 = make_tree(Int, Nothing, V, 1)
+            n2 = make_tree(Int, Nothing, V, 2)
 
             n2.path_parent = n1
 
-            @test_throws ArgumentError link!(n1, n2, nothing, -1)
+            @test_throws ArgumentError link!(n2, n1, nothing, convert(V, 1))
+        end
+
+        begin
+            n1 = make_tree(Int, Nothing, V, 1)
+            n2 = make_tree(Int, Nothing, V, 2)
+
+            n2.path_parent = n1
+
+            @test_throws ArgumentError link!(n1, n2, nothing, convert(V, -1))
         end
     end
 
-    @testset "cut!" begin
+    @testset "cut! $(V)" for V in [Int, Float32, Float64]
         begin
-            n1 = make_tree(Int, Nothing, Int, 1)
+            n1 = make_tree(Int, Nothing, V, 1)
 
             cut!(n1)
 
             @test  n1.path_parent === nothing
             @test  n1.parent === nothing
+
+            @test get_cost(n1) == (0, typemax(V))
         end
 
         begin
-            n1 = make_tree(Int, Nothing, Int, 1)
-            n2 = make_tree(Int, Nothing, Int, 2)
+            n1 = make_tree(Int, Nothing, V, 1)
+            n2 = make_tree(Int, Nothing, V, 2)
 
             attach_left!(n1, n2)
 
@@ -540,12 +560,14 @@
 
             @test  n2.path_parent === nothing
             @test  n2.parent === nothing
+
+            @test get_cost(n2) == (0, typemax(V))
         end
     end
 
-    @testset "find_root" begin
+    @testset "find_root $(V)" for V in [Int]
         begin
-            n1 = make_tree(Int, Nothing, Int, 1)
+            n1 = make_tree(Int, Nothing, V, 1)
 
             r = find_root(n1)
 
@@ -553,9 +575,9 @@
         end
 
         begin
-            n1 = make_tree(Int, Nothing, Int, 1)
-            n2 = make_tree(Int, Nothing, Int, 2)
-            n3 = make_tree(Int, Nothing, Int, 3)
+            n1 = make_tree(Int, Nothing, V, 1)
+            n2 = make_tree(Int, Nothing, V, 2)
+            n3 = make_tree(Int, Nothing, V, 3)
 
             attach_left!(n2, n1)
             attach_left!(n3, n2)
@@ -566,18 +588,18 @@
         end
     end
 
-    @testset "find_mincost" begin
+    @testset "find_mincost $(V)" for V in [Int, Float32, Float64]
         begin
-            n1 = make_tree(Int, Int, Int, 1)
-            n2 = make_tree(Int, Int, Int, 2)
-            n3 = make_tree(Int, Int, Int, 3)
-            n4 = make_tree(Int, Int, Int, 4)
-            n5 = make_tree(Int, Int, Int, 5)
+            n1 = make_tree(Int, Int, V, 1)
+            n2 = make_tree(Int, Int, V, 2)
+            n3 = make_tree(Int, Int, V, 3)
+            n4 = make_tree(Int, Int, V, 4)
+            n5 = make_tree(Int, Int, V, 5)
 
-            link!(n2, n1, 1, 100)
-            link!(n3, n2, 2, 10)
-            link!(n4, n3, 3, 10)
-            link!(n5, n4, 4, 50)
+            link!(n2, n1, 1, convert(V, 100))
+            link!(n3, n2, 2, convert(V, 10))
+            link!(n4, n3, 3, convert(V, 10))
+            link!(n5, n4, 4, convert(V, 50))
 
             (n, c) = find_mincost(n5)
 
@@ -586,27 +608,27 @@
         end
     end
 
-    @testset "add_cost!" begin
+    @testset "add_cost! $(V)" for V in [Int, Float32, Float64]
         begin
-            n1 = make_tree(Int, Int, Int, 1)
-            n2 = make_tree(Int, Int, Int, 2)
-            n3 = make_tree(Int, Int, Int, 3)
-            n4 = make_tree(Int, Int, Int, 4)
-            n5 = make_tree(Int, Int, Int, 5)
+            n1 = make_tree(Int, Int, V, 1)
+            n2 = make_tree(Int, Int, V, 2)
+            n3 = make_tree(Int, Int, V, 3)
+            n4 = make_tree(Int, Int, V, 4)
+            n5 = make_tree(Int, Int, V, 5)
 
-            link!(n2, n1, 1, 100)
-            link!(n3, n2, 2, 10)
-            link!(n4, n3, 3, 10)
-            link!(n5, n4, 4, 50)
+            link!(n2, n1, 1, convert(V, 100))
+            link!(n3, n2, 2, convert(V, 10))
+            link!(n4, n3, 3, convert(V, 10))
+            link!(n5, n4, 4, convert(V, 50))
 
-            add_cost!(n5, -10)
+            add_cost!(n5, convert(V, -10))
 
             (n, c) = find_mincost(n5)
 
             @test n === n3
             @test c == 0
 
-            add_cost!(n5, 100)
+            add_cost!(n5, convert(V, 100))
 
             (n, c) = find_mincost(n5)
 
@@ -615,36 +637,36 @@
         end
 
         begin
-            n1 = make_tree(Int, Nothing, Int, 1)
-            n2 = make_tree(Int, Nothing, Int, 2)
+            n1 = make_tree(Int, Nothing, V, 1)
+            n2 = make_tree(Int, Nothing, V, 2)
 
-            link!(n2, n1, nothing, 100)
+            link!(n2, n1, nothing, convert(V, 100))
 
-            @test_throws ArgumentError add_cost!(n2, -101)
+            @test_throws ArgumentError add_cost!(n2, convert(V, -101))
         end
 
         begin
-            n1 = make_tree(Int, Nothing, Int, 1)
+            n1 = make_tree(Int, Nothing, V, 1)
 
-            add_cost!(n1, 100)
+            add_cost!(n1, convert(V, 100))
 
-            @test n1.delta_min == typemax(Int)
+            @test n1.delta_min == typemax(V)
             @test n1.delta_cost == 0
         end
     end
 
-    @testset "cost" begin
+    @testset "cost $(V)" for V in [Int, Float32, Float64]
         begin
-            n1 = make_tree(Int, Int, Int, 1)
-            n2 = make_tree(Int, Int, Int, 2)
-            n3 = make_tree(Int, Int, Int, 3)
-            n4 = make_tree(Int, Int, Int, 4)
-            n5 = make_tree(Int, Int, Int, 5)
+            n1 = make_tree(Int, Int, V, 1)
+            n2 = make_tree(Int, Int, V, 2)
+            n3 = make_tree(Int, Int, V, 3)
+            n4 = make_tree(Int, Int, V, 4)
+            n5 = make_tree(Int, Int, V, 5)
 
-            link!(n2, n1, 1, 100)
-            link!(n3, n2, 2, 200)
-            link!(n4, n3, 3, 200)
-            link!(n5, n4, 4, 50)
+            link!(n2, n1, 1, convert(V, 100))
+            link!(n3, n2, 2, convert(V, 200))
+            link!(n4, n3, 3, convert(V, 200))
+            link!(n5, n4, 4, convert(V, 50))
 
             @test cost(n1) === nothing
             @test cost(n2) == 100
@@ -654,13 +676,13 @@
         end
     end
 
-    @testset "parent" begin
+    @testset "parent $(V)" for V in [Int]
         begin
-            n1 = make_tree(Int, Nothing, Int, 1)
-            n2 = make_tree(Int, Nothing, Int, 2)
-            n3 = make_tree(Int, Nothing, Int, 3)
-            n4 = make_tree(Int, Nothing, Int, 4)
-            n5 = make_tree(Int, Nothing, Int, 5)
+            n1 = make_tree(Int, Nothing, V, 1)
+            n2 = make_tree(Int, Nothing, V, 2)
+            n3 = make_tree(Int, Nothing, V, 3)
+            n4 = make_tree(Int, Nothing, V, 4)
+            n5 = make_tree(Int, Nothing, V, 5)
 
             attach_left!(n2, n1)
             attach_right!(n3, n1)
@@ -675,12 +697,12 @@
         end
     end
 
-    @testset "label, edge_label" begin
+    @testset "label, edge_label $(V)" for V in [Int]
         begin
-            n1 = make_tree(Int, Int, Int, 1)
-            n2 = make_tree(Int, Int, Int, 2)
+            n1 = make_tree(Int, Int, V, 1)
+            n2 = make_tree(Int, Int, V, 2)
 
-            link!(n2, n1, 1, 100)
+            link!(n2, n1, 1, convert(V, 100))
 
             @test label(n1) == 1
             @test label(n2) == 2
