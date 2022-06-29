@@ -22,7 +22,7 @@ These operations are also supported:
 The operations `cost(v)` and `parent(v)` run in `O(log n)` amortized time, the other in `O(1)` time.
 
 There are different ways to implement link/cut trees.
-This implementation follows the version from Tarjan's book "Data Structures and Network Algorithms".
+This implementation follows the version from Tarjan's book "Data Structures and Network Algorithms" ([10.1137/1.9781611970265](https://doi.org/10.1137/1.9781611970265)).
 
 Examples:
 
