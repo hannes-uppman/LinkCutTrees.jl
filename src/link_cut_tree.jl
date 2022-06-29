@@ -28,15 +28,16 @@ function _add_costs(x::T, y::T) where {T <: Real}
     end
 end
 
+# assumes x >= y
 function _subtract_costs(x::T, y::T) where {T <: Real}
-    if x != typemax(T) && y != typemax(T)
+    if x != typemax(T)
         return x - y
-    elseif x == typemax(T) && y != typemax(T)
-        return typemax(T)
-    elseif x == typemax(T) && y == typemax(T)
-        return zero(T)
     else
-        throw(ErrorException("Error when subtracting costs"))
+        if y != typemax(T)
+            return typemax(T)
+        else
+            return zero(T)
+        end
     end
 end
 
