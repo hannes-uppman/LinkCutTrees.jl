@@ -70,7 +70,7 @@ end
 
 # assumes u, v, w splay tree roots, and that the tree rooted in v contains exactly one node
 # does not update the path_parent field in nodes u, v, w
-function _assemble!(u::Union{T, Nothing}, v::T, w::Union{T, Nothing}) where {T <: LinkCutTreeNode}
+function _assemble!(u::Union{LinkCutTreeNode{T,U,V}, Nothing}, v::LinkCutTreeNode{T,U,V}, w::Union{LinkCutTreeNode{T,U,V}, Nothing}) where {T,U,V <: Real}
     v.left = u
     v.right = w
 
@@ -116,7 +116,7 @@ function access!(v::LinkCutTreeNode)
     # walk up
     u = v
     while u.path_parent !== nothing
-        w = u.path_parent
+        w = u.path_parent::LinkCutTreeNode
         splay!(w)
         # set preferred child
         (wl, wr) = _disassemble!(w)
@@ -191,7 +191,7 @@ Return the root node of the tree that holds `v`
 function find_root(v::LinkCutTreeNode)
     access!(v)
     while v.left !== nothing
-        v = v.left
+        v = v.left::LinkCutTreeNode
     end
     r = v
     access!(r)
@@ -210,10 +210,10 @@ function find_mincost(v::LinkCutTreeNode)
     w = v
     while w.delta_cost != 0 || w.left !== nothing && w.left.delta_min == 0
         if w.left !== nothing && w.left.delta_min == 0
-            w = w.left
+            w = w.left::LinkCutTreeNode
         else # w.delta_cost > 0
             # since w.delta_cost > 0 we know w.right.delta_min == 0
-            w = w.right
+            w = w.right::LinkCutTreeNode
         end
     end
     access!(w)
@@ -266,15 +266,15 @@ Return the parent of node `v` if it exists, and return nothing if `v` is the roo
 function parent(v::LinkCutTreeNode)
     access!(v)
 
-    if v.left === nothing
-        return nothing
-    else
-        u = v.left
+    if v.left !== nothing
+        u = v.left::LinkCutTreeNode
         while u.right !== nothing
-            u = u.right
+            u = u.right::LinkCutTreeNode
         end
         access!(u)
         return u
+    else
+        return nothing
     end
 end
 
@@ -314,23 +314,26 @@ function rotate_left!(v::LinkCutTreeNode)
     #  /   \    c
     # a     b
 
-    p = v.parent
+    vp = v.parent
 
-    (a, w) = _disassemble!(v)
+    (a, w::LinkCutTreeNode) = _disassemble!(v)
     (b, c) = _disassemble!(w)
 
     _assemble!(a, v, b)
     _assemble!(v, w, c)
 
-    if p === nothing
+    if vp === nothing
         w.path_parent = v.path_parent
         v.path_parent = nothing
-    elseif v === p.left
-        p.left = w
     else
-        p.right = w
+        p = vp::LinkCutTreeNode
+        if v === p.left
+            p.left = w
+        else
+            p.right = w
+        end
     end
-    w.parent = p
+    w.parent = vp
 
     return nothing
 end
@@ -349,39 +352,43 @@ function rotate_right!(v::LinkCutTreeNode)
     #   a    /   \
     #       b     c
 
-    p = v.parent
+    vp = v.parent
 
-    (u, c) = _disassemble!(v)
+    (u::LinkCutTreeNode, c) = _disassemble!(v)
     (a, b) = _disassemble!(u)
 
     _assemble!(b, v, c)
     _assemble!(a, u, v)
 
-    if p === nothing
+    if vp === nothing
         u.path_parent = v.path_parent
         v.path_parent = nothing
-    elseif v === p.left
-        p.left = u
     else
-        p.right = u
+        p = vp::LinkCutTreeNode
+        if v === p.left
+            p.left = u
+        else
+            p.right = u
+        end
     end
-    u.parent = p
+    u.parent = vp
 
     return nothing
 end
 
 function splay!(v::LinkCutTreeNode)
     while v.parent !== nothing
-        p = v.parent
-        pp = p.parent
+        p = v.parent::LinkCutTreeNode
+        vpp = p.parent
 
-        if pp === nothing
+        if vpp === nothing
             if p.left === v
                 rotate_right!(p)
             else
                 rotate_left!(p)
             end
         else
+            pp = vpp::LinkCutTreeNode
             if v === p.left && p === pp.left
                 rotate_right!(pp)
                 rotate_right!(p)
