@@ -47,6 +47,9 @@ function _disassemble!(v::LinkCutTreeNode)
     u = v.left
     w = v.right
 
+    v.left = nothing
+    v.right = nothing
+
     mincost_v_old = v.delta_min # v root
 
     v.delta_min = _add_costs(v.delta_cost, mincost_v_old)
@@ -54,15 +57,11 @@ function _disassemble!(v::LinkCutTreeNode)
 
     if u !== nothing
         u.parent = nothing
-        v.left = nothing
-
         u.delta_min = _add_costs(u.delta_min, mincost_v_old)
     end
 
     if w !== nothing
         w.parent = nothing
-        v.right = nothing
-
         w.delta_min = _add_costs(w.delta_min, mincost_v_old)
     end
 
@@ -79,22 +78,22 @@ function _assemble!(u::Union{T, Nothing}, v::T, w::Union{T, Nothing}) where {T <
     mincost = cost_v
     if u !== nothing
         mincost = min(mincost, u.delta_min) # u root
+        u.parent = v
     end
     if w !== nothing
         mincost = min(mincost, w.delta_min) # w root
+        w.parent = v
     end
 
     if u !== nothing
-        u.parent = v
         u.delta_min = _subtract_costs(u.delta_min, mincost)
     end
     if w !== nothing
-        w.parent = v
         w.delta_min = _subtract_costs(w.delta_min, mincost)
     end
 
-    v.delta_min = mincost
     v.delta_cost = _subtract_costs(cost_v, mincost)
+    v.delta_min = mincost
 
     return nothing
 end
@@ -108,9 +107,9 @@ function access!(v::LinkCutTreeNode)
     splay!(v)
 
     # remove preferred child
-    (vl, vr) = _disassemble!(v)
-    _assemble!(vl, v, nothing)
-    if vr !== nothing
+    if v.right !== nothing
+        (vl, vr) = _disassemble!(v)
+        _assemble!(vl, v, nothing)
         vr.path_parent = v
     end
 
