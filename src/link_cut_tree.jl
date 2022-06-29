@@ -143,7 +143,7 @@ Assumes `w` and `v` are nodes in different trees, and that `v` is a root node.
 function link!(v::LinkCutTreeNode{T, U, V}, w::LinkCutTreeNode{T, U, V}, i::U, c::V) where {T, U, V <: Real}
     # assumes find_root!(v) !== find_root!(w)
 
-    if (c < zero(V))
+    if (c < 0)
         throw(ArgumentError("Edge cost is negative"))
     end
 
@@ -172,10 +172,9 @@ Separate `v` from its parent
 """
 function cut!(v::LinkCutTreeNode)
     access!(v)
-    # Now: v.right === nothing (accessed)
+    # Now: v.right === nothing (accessed), v.left.path_parent === nothing (as v.left.parent === v)
 
-    (w, _) = _disassemble!(v)
-    # w.path_parent === nothing (was v's child)
+    _disassemble!(v)
 
     v.delta_min = typemax(v.delta_min)
     v.delta_cost = zero(v.delta_cost)
@@ -209,11 +208,11 @@ function find_mincost(v::LinkCutTreeNode)
     access!(v)
     c = v.delta_min
     w = v
-    while w.delta_cost != zero(w.delta_cost) || w.left !== nothing && w.left.delta_min == zero(w.delta_min)
-        if w.left !== nothing && w.left.delta_min == zero(w.delta_min)
+    while w.delta_cost != 0 || w.left !== nothing && w.left.delta_min == 0
+        if w.left !== nothing && w.left.delta_min == 0
             w = w.left
         else # w.delta_cost > 0
-            # since w.delta_cost > 0 we know w.right.delta_min == zero(w.delta_min)
+            # since w.delta_cost > 0 we know w.right.delta_min == 0
             w = w.right
         end
     end
@@ -236,7 +235,7 @@ function add_cost!(v::LinkCutTreeNode{T, U, V}, x::V) where {T, U, V <: Real}
     #v.delta_min = _add_costs(v.delta_min, x)
     v.delta_min += x
 
-    if (v.delta_min < zero(V))
+    if (v.delta_min < 0)
         throw(ArgumentError("Second parameter too small, edge cost became negative"))
     end
 
