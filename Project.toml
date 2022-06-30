@@ -1,7 +1,7 @@
 name = "LinkCutTrees"
 uuid = "9b2c3604-c02d-4033-9e75-a81d4d4fb586"
 authors = ["Hannes Uppman"]
-version = "0.2.0"
+version = "0.2.1"
 
 [compat]
 julia = "1"
