@@ -1,3 +1,8 @@
+[pkgeval-img]: https://juliaci.github.io/NanosoldierReports/pkgeval_badges/L/LinkCutTrees.svg
+[pkgeval-url]: https://juliaci.github.io/NanosoldierReports/pkgeval_badges/L/LinkCutTrees.html
+
+[![PkgEval][pkgeval-img]][pkgeval-url]
+
 # LinkCutTrees.jl
 
 This is a simple Julia implementation of Sleator and Tarjan's link/cut tree data structure.
